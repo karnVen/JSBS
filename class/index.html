@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Prevent scrolling */
+}
+
+body {
+  background-image: url(h.png);
+  background-size: cover; /* Ensure background covers entire viewport */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.spline-container {
+  position: relative;
+  width: 100vw;  /* full viewport width */
+  height: 100vh; /* full viewport height */
+  overflow: hidden; /* Prevent overflow inside container */
+}
+
+   
+  spline-viewer {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .overlay-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  color: white;
+  display: flex;
+  justify-content: flex-start; /* align content to left */
+  align-items: center; /* vertically center */
+  padding-left: 2rem; /* some left padding for spacing */
+  font-size: 2rem;
+  user-select: none;
+}
+
+.overlay-content > div {
+  max-width: 300px; /* optional, limit width */
+}
+
+</style>
+<body>
+
+
+
+<div class="spline-container">
+  <spline-viewer url="https://prod.spline.design/IJhbvGnSwX3YsPbx/scene.splinecode"></spline-viewer>
+  <div class="overlay-content">
+    <H1>EDUVEN</H1>
+    <!-- Your HTML content here -->
+    <div class="hi">Welcome to the 3D Kids Learning Site!</div>
+  </div>
+</div>
+
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.57/build/spline-viewer.js"></script>
+
+</body>
+</html>

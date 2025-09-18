@@ -1,0 +1,21 @@
+Body{
+    background-color: ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#grendperiod{
+ height: 600px;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#parent{
+    height: 500px;
+    width: 500px;
+}
+#child{
+    height: 300px;
+    width: 300px;
+}

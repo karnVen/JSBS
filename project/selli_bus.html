@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Web Page</title>
+    <style>
+        /* Basic styling for the body to center content */
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        /* Styling for the form container */
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        /* Style for the input field */
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+        }
+        /* Style for the submit button */
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        /* Hover effect for the button */
+        button:hover {
+            background-color: #0056b3;
+        }
+        /* Style for the status message area */
+        #statusMessage {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        /* Styles for the response area */
+        #responseContainer {
+            margin-top: 20px;
+            display: none; /* Initially hidden */
+        }
+        #responseArea {
+            margin-top: 5px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            min-height: 40px;
+            white-space: pre-wrap; /* Preserves formatting and wraps text */
+            word-wrap: break-word;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main container for the form -->
+    <div class="form-container">
+        <h1>Welcome!</h1>
+        
+        <!-- Form element with an ID for easy selection in JS -->
+        <form id="webhookForm">
+            <div>
+                <label for="inputField">Enter some text:</label>
+                <br>
+                <!-- Text input field -->
+                <input type="text" id="inputField" name="inputField" placeholder="e.g., Hello World" required>
+            </div>
+            
+            <!-- Submit button -->
+            <button type="submit">Submit</button>
+        </form>
+        
+        <!-- Element to display submission status -->
+        <div id="statusMessage"></div>
+
+        <!-- Container for the webhook response, initially hidden -->
+        <div id="responseContainer">
+            <label for="responseArea"><strong>Here is your answer:</strong></label>
+            <div id="responseArea"></div>
+        </div>
+    </div>
+
+    <script>
+        // Select the form and other relevant elements
+        const form = document.getElementById('webhookForm');
+        const statusMessage = document.getElementById('statusMessage');
+        const responseContainer = document.getElementById('responseContainer');
+        const responseArea = document.getElementById('responseArea');
+
+        // Generate a simple random session key when the script loads
+        const sessionKey = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+        // Add an event listener for the form's submit event
+        form.addEventListener('submit', function(event) {
+            // Prevent the default form submission behavior (which reloads the page)
+            event.preventDefault();
+
+            // Get the data from the input field
+            const inputValue = document.getElementById('inputField').value;
+            const webhookUrl = 'https://karnven3o.app.n8n.cloud/webhook/520ebc9d-b14b-40a7-8645-17c494165dab';
+
+            // Prepare the data payload to be sent as JSON, including the session key
+            const data = {
+                sessionKey: sessionKey,
+                data: inputValue
+            };
+
+            // Update status and hide previous response
+            statusMessage.textContent = 'Sending...';
+            statusMessage.style.color = 'black';
+            responseContainer.style.display = 'none';
+
+            // Use the Fetch API to send a POST request
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => {
+                // Check if the request was successful
+                if (response.ok) {
+                    // Check if the response has content before trying to parse it as JSON
+                    const contentType = response.headers.get("content-type");
+                    if (contentType && contentType.indexOf("application/json") !== -1) {
+                        return response.json();
+                    } else {
+                        return response.text(); // Handle plain text responses
+                    }
+                }
+                // If not successful, throw an error to be caught by the .catch block
+                throw new Error('Network response was not ok.');
+            })
+            .then(responseData => {
+                // Handle a successful submission
+                console.log('Success:', responseData);
+                statusMessage.textContent = 'Response received!';
+                statusMessage.style.color = 'green';
+                form.reset(); // Clear the form field
+
+                // Display the response from the webhook
+                if (typeof responseData === 'object' && responseData !== null && responseData.output) {
+                    // If response is an object and has an 'output' field, display it
+                    responseArea.textContent = responseData.output;
+                } else if (typeof responseData === 'object' && responseData !== null) {
+                    // If it's an object but no 'output' field, stringify the whole object
+                    responseArea.textContent = JSON.stringify(responseData, null, 2);
+                }
+                else {
+                    // Otherwise, display as plain text
+                    responseArea.textContent = responseData || 'Webhook returned an empty response.';
+                }
+                responseContainer.style.display = 'block'; // Show the response container
+            })
+            .catch((error) => {
+                // Handle any errors that occurred during the fetch
+                console.error('Error:', error);
+                statusMessage.textContent = 'Failed to send data.';
+                statusMessage.style.color = 'red';
+            });
+        });
+    </script>
+</body>
+</html>

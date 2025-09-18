@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style333.css">
+</head>
+<body>
+    <div id="rule">
+        <h1>calculater</h1>
+        <div id="root2">
+            <input type="text" id="i1" placeholder="0">
+            <input type="text" id="i2" placeholder="0">
+        </div>
+        
+        <button id="bt">submit</button>
+        <div id="bi3">
+            <h3></h3> 
+        </div>
+    </div>
+
+    <script>
+        
+        const button = document.querySelector('#bt');
+
+        button.addEventListener('click', () => {
+            const i1input = document.getElementById('i1');
+            const invalue = i1input.value;
+
+            const i2input = document.getElementById('i2');
+           
+            const i2nvalue = i2input.value;
+
+            const num1 = Number(invalue);
+            const num2 = Number(i2nvalue);
+
+            const sum = num1 + num2;
+
+            console.log(sum);
+
+           
+            document.getElementById('bi3').textContent = sum;
+        });
+    </script>
+</body>
+</html>

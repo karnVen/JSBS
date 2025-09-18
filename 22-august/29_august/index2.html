@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Bubbling Example</title>
+    <style>
+       
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; 
+            margin: 0;
+        }
+
+
+        #grendparent {
+            height: 600px;
+            width: 600px;
+            background-color: #d1e7dd;
+            border: 2px solid #0f5132;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #parent {
+            height: 400px;
+            width: 400px;
+            background-color: #cfe2ff;
+            border: 2px solid #0a58ca;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #child {
+            height: 200px;
+            width: 200px;
+            background-color: #f8d7da;
+            border: 2px solid #842029;
+        }
+    </style>
+</head>
+<body>
+    <div id="grendparent">
+        <div id="parent">
+            <div id="child">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('#grendparent').addEventListener('click', () => {
+            console.log('Grandparent clicked');
+            console.log(event.target);
+        });
+
+        
+        document.querySelector('#parent').addEventListener('click', () => {
+            console.log('Parent clicked');
+            console.log(event.target);
+        });
+
+        
+        document.querySelector('.child').addEventListener('click', () => {
+            console.log('Child clicked');
+        });
+    </script>
+</body>
+</html>

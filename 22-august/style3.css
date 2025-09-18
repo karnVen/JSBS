@@ -1,0 +1,51 @@
+body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* A light blue background color */
+            display: flex; /* Use flexbox to easily center content */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Make the body take up the full viewport height */
+            margin: 0; /* Remove default body margin */
+        }
+
+        /* Container for the calculator */
+        #rule {
+            background-color: #ffffff; /* White background for the container */
+            padding: 20px 30px; /* Add some space inside the container */
+            border-radius: 10px; /* Give it rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+            text-align: center; /* Center the text inside */
+            width: 300px; /* Set a fixed width */
+        }
+
+        /* The main heading */
+        h1 {
+            color: #333; /* Dark grey color for the heading text */
+            margin-bottom: 20px; /* Add space below the heading */
+        }
+
+        /* Style for the input fields */
+        input {
+            width: 80%; /* Make input fields take up most of the container width */
+            padding: 10px; /* Add space inside the input fields */
+            margin-bottom: 10px; /* Add space between the input fields */
+            border: 1px solid #ccc; /* A light grey border */
+            border-radius: 5px; /* Rounded corners for the input fields */
+        }
+
+        /* Style for the button */
+        button {
+            background-color: #4CAF50; /* A green background */
+            color: white; /* White text */
+            padding: 10px 20px; /* Add space inside the button */
+            border: none; /* Remove the default border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Show a pointer cursor on hover */
+            margin-top: 10px; /* Add space above the button */
+        }
+
+        /* Style for the result div */
+        #bi3 {
+            margin-top: 20px; /* Add space above the result */
+            color: #555; /* A slightly lighter grey for the result text */
+        }
